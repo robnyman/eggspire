@@ -29,6 +29,10 @@ a {
 }
 */
 
+.test-note {
+	color: #f00;
+}
+
 header {
 	margin-bottom: 20px;
 	clear: both;
