@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script type="text/javascript" src="bower_components/jquery/jquery.js"></script>
+	<script type="text/javascript" src="bower_components/momentjs/moment.js"></script>
+	<link rel="stylesheet" href="css/style.css" />
+	<title>Eggspire - stop food waste</title>
+</head>
+<body>
+
+	<header>
+		<div class="inner">
+			<div class="logo">
+				<h1><a href="index.html">Eggspire <img src="images/logo.png" /></a></h1>
+			</div>
+			<div class="menu">
+				<a href="index.html">Search</a>
+				&nbsp;
+				<a href="me.html">Me</a>
+				&nbsp;
+				<a href="share.html">Share</a>
+			</div>
+		</div>
+	</header>
+
+	<section class="main">
+		<section class="content">
+			<div class="searchprompt">
+				<input id="q" value="" placeholder="Find free food" type="search" /></input>
+			</div>
+			<div class="searchresults">
+				<div id="searchresultstitle"><h2>Search results</h2> Sort by: <b>Distance</b> | <a href="#">Freshness</a> | <a href="#">Quantity</a></div>
+				<h2 id="recenttitle">Recent additions</h2>
+				<ul id="results"></ul>
+			</div>
+		</section>
+		<aside>
+			<a class="motivation" href="share.html">
+				<h3>Have excess food?</h3>
+				Give it away!
+			</a>
+			<div class="motivation">
+				<p><strong>670,000</strong> tons of food is wasted every year in
+				Sweden</p>
+
+				<p>That's equivalent to <b>121.818 elephants:</b></p>
+				<p><img src="images/elephant.png" /><img src="images/elephant.png" /><img src="images/elephant.png" /><img src="images/elephant.png" /><img src="images/elephant.png" /><img src="images/elephant.png" /><img src="images/elephant.png" /><img src="images/elephant.png" /><img src="images/elephant.png" /><img src="images/elephant.png" /></p>
+				<p><b>One third</b> of that is unneccessary waste. Help us change that.</p>
+			</div>
+		</aside>
+	</section>
+
+	<footer>
+		<div class="inner">
+			Eggspire
+		</div>
+	</footer>
+
+	<script type="text/javascript">
+
+		var alldata = [
+			{ title: 'Tomatoes', image: 'images/tomato.png' },
+			{ title: 'Eggs', image: 'images/eggs.png' },
+			{ title: 'Eggplant', image: 'images/eggplant.png' },
+			{ title: 'Lemon', image: 'images/lemon.png' },
+			{ title: 'Carrot', image: 'images/carrot.png' },
+			{ title: 'Bread', image: 'images/bread.png' }
+		]
+
+		function doSearch(q) {
+			console.log('doSearch', q);
+			var total = 40;
+			if (q == '') {
+				$('#searchresultstitle').hide();
+				$('#recenttitle').show();
+				$('ul#results').removeClass('list');
+				$('ul#results').addClass('splash');
+			} else {
+				$('#searchresultstitle').show();
+				$('#recenttitle').hide();
+				total = Math.floor(5 + Math.random() * 5);
+				$('ul#results').addClass('list');
+				$('ul#results').removeClass('splash');
+			}
+			var html = '';
+			for(var i=0; i<total; i++) {
+				var n = Math.floor(Math.random() * alldata.length);
+				var data = alldata[n];
+				data.qty = Math.floor(1 + Math.random() * 3);
+				data.distance = Math.floor(150 + Math.random() * 3000);
+				data.expires = Math.floor(2 + Math.random() * 5);
+				html += '<li>';
+				html += '<a href="reserve.html#'+encodeURIComponent(JSON.stringify(data,0,null))+'">';
+				html += '<span class="image"><img src="' + data.image + '" /></span>';
+				html += '<span class="info">';
+				html += '<h4>'+data.title+'</h4>';
+				html += '<img src="images/quantity.png" /> '+data.qty+' &nbsp;&nbsp; ';
+				html += '<img src="images/location.png" /> '+data.distance+' Meters &nbsp;&nbsp; '
+				html += '<img src="images/clock.png" /> '+data.expires+' Days';
+				html += '<span class="reserve">Reserve</span>';
+				html += '</span>';
+				html += '</a>';
+				html += '</li>';
+			}
+			html += '<li class="clear"></li>';
+			$('ul#results').html(html);
+		}
+
+		var q = $('input#q');
+		if (q.length > 0) {
+			q.change(function(e) {
+				doSearch(q.val());
+			});
+			q.keyup(function(e) {
+				doSearch(q.val());
+			});
+		}
+
+		doSearch('');
+
+	</script>
+</body>
+</html>

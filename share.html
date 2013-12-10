@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script type="text/javascript" src="bower_components/jquery/jquery.js"></script>
+	<link rel="stylesheet" href="css/style.css" />
+	<title>Eggspire - stop food waste</title>
+</head>
+<body>
+
+	<header>
+		<div class="inner">
+			<div class="logo">
+				<h1><a href="index.html">Eggspire <img src="images/logo.png" /></a></h1>
+			</div>
+			<div class="menu">
+				<a href="index.html">Search</a>
+				&nbsp;
+				<a href="me.html">Me</a>
+				&nbsp;
+				<a href="share.html">Share</a>
+			</div>
+		</div>
+	</header>
+
+	<section class="main">
+		<section class="content share">
+			<h1>Share</h1>
+			<p>
+				Share at:<br/>
+				<input type="radio" name="loc" value="loc1" /> My home.<br/>
+				<input type="radio" name="loc" value="loc2" />
+				<select>
+					<option>Lobby</option>
+					<option>ICA Nextdoor</option>
+				</select>
+			</p>
+			<p>
+				Quantity:<br/>
+				<input id="qty" type="number" />
+			</p>
+			<p>
+				Item:<br/>
+				<input id="item" list="items" />
+				<datalist id="items">
+				<select name="items">
+				<option>Eggs
+				<option>Eggplant
+				<option>Lemon
+				<option>Tomato
+				<option>Tomatoes
+				</select>
+				</datalist>
+			</p>
+			<p>
+				Expiry date:<br/>
+				<input type="date" />
+			</p>
+			<p>
+				<input id="iwould" type="checkbox" /> I would eat this.
+			</p>
+			<p>
+				<button id="done" class="huge">Submit!</button>
+			</p>
+		</section>
+		<aside class="image">
+			<img id="img" src="images/transparent.png" />
+		</aside>
+	</section>
+
+	<footer>
+		<div class="inner">
+			Eggspire
+		</div>
+	</footer>
+
+	<script type="text/javascript">
+
+		var q = $('button#done');
+		var cb = $('input#iwould');
+		q.click(function() {
+			if (cb.is(':checked')) {
+				location = 'share2.html';
+			}
+		});
+
+		$('#item').keyup(function() {
+			var v = $('#item').val().trim().toLowerCase();
+			var i = 'images/transparent.png';
+			if (v == 'egg') i = 'images/eggs.png';
+			if (v == 'eggs') i = 'images/eggs.png';
+			if (v == 'tomato') i = 'images/tomato.png';
+			if (v == 'tomatoes') i = 'images/tomato.png';
+			if (v == 'eggplant') i = 'images/eggplant.png';
+			if (v == 'lemon') i = 'images/lemon.png';
+			$('img#img').attr('src', i);
+		});
+
+	</script>
+
+</body>
+</html>
